@@ -1,14 +1,12 @@
 #include "stdc++.h"
-#include <direct.h>
 #include <boost/process.hpp>
-#include <windows.h>
 #include <chrono>
 #include <random>
-#include <pplwin.h>
+
 using namespace std;
 
 namespace bp = boost::process;
-
+namespace bfs = boost::filesystem;
 #ifdef __GNUC__
 #define gen_random mt19937 rnd(time(nullptr));
 #define gtln getline(iss, token, delimiter)
@@ -139,10 +137,6 @@ struct Command {
     string size_var = "", name;
     Command(string& tmp) {
         vector<string> args = split(tmp, ';');
-        for (auto x : args) {
-            cout << x << " ";
-        }
-        cout << "\n";
         //cout << args[0] << "\n";
         name = args[1];
         if (args[0] == "count") {
@@ -334,7 +328,7 @@ int main(int argc, char* argv[]) {
         else if (c.type == 4) {
             if (c.name == "1") {
                 tests_path = "Tests\\";
-                _mkdir(tests_path.c_str());
+                bfs::create_directory(tests_path.c_str());
             }
             else tests_path = c.name;
         }
