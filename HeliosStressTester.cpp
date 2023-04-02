@@ -280,9 +280,9 @@ string Run_Script(int id) {
     }
     if (tested != "" && testing != "") {
         string rans = strip(Run_Program(input, testing));
-        if (rans == "Process terminated due to timeout") return rans;
+        if (rans == "Process terminated due to timeout") return rans+"\n";
         string tans = strip(Run_Program(input, tested));
-        if (tans == "Process terminated due to timeout") return tans;
+        if (tans == "Process terminated due to timeout") return tans+"\n";
         if (tests_path != "") {
             remove((tests_path + to_string(id) + "_1" + ".output").c_str());
             write_to_file(tests_path + to_string(id) + "_1" + ".output", rans);
