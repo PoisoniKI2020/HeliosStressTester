@@ -87,8 +87,7 @@ struct Command {
     int l, r, size, count, vtype, type, eol = 0;
     string size_var = "", name;
     Command(string& tmp) {
-        vector<string> args = split(tmp, ';');
-        //cout << args[0] << "\n";
+        vector<string> args = split(tmp, ',');
         name = args[1];
         if (args[0] == "count") {
             count = stoi(args[1]);
