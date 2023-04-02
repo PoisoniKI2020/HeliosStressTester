@@ -29,19 +29,14 @@ std::vector<std::string> split(const std::string& str, char delimiter) {
     }
     return tokens;
 }
-std::string strip(const std::string& s)
-{
-    // Найти первую позицию символа, не являющегося пробельным
+std::string strip(const std::string& s) {
     size_t first = s.find_first_not_of(" \t\n\r");
 
-    // Найти последнюю позицию символа, не являющегося пробельным
     size_t last = s.find_last_not_of(" \t\n\r");
 
-    // Если строка пустая, то вернуть пустую строку
     if (first == std::string::npos || last == std::string::npos)
         return "";
 
-    // Вернуть подстроку, содержащую символы между первой и последней позициями
     return s.substr(first, last - first + 1);
 }
 
@@ -56,61 +51,19 @@ bool is_number(const string& str) {
     return true;
 }
 
-/*
+
 std::string Run_Program(const std::string& input, const std::string& name) {
-    // Записываем входные данные во временный файл
     std::ofstream input_file("input.txt");
     input_file << input;
     input_file.close();
 
-    // Создаем объект процесса
     bp::ipstream out;
     bp::opstream in;
     bp::child process(name, bp::std_in < in, bp::std_out > out);
 
-    // Отправляем входные данные в стандартный ввод процесса
     in << input << std::endl;
     in.close();
 
-    // Ждем не более 10 секунд и проверяем, закончил ли процесс работу
-    auto start_time = std::chrono::steady_clock::now();
-    while (process.running()) {
-        auto current_time = std::chrono::steady_clock::now();
-        auto elapsed_time = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_time);
-        if (elapsed_time > std::chrono::seconds(5)) {
-            process.terminate(); // Останавливаем процесс
-            return "Process terminated due to timeout";
-        }
-    }
-
-    // Читаем выходные данные из процесса
-    std::string output((std::istreambuf_iterator<char>(out)),
-                        std::istreambuf_iterator<char>());
-
-    // Удаляем временные файлы
-    std::remove("input.txt");
-
-    return output;
-}
-*/
-
-
-std::string Run_Program(const std::string& input, const std::string& name) {
-    // Записываем входные данные во временный файл
-    std::ofstream input_file("input.txt");
-    input_file << input;
-    input_file.close();
-
-    // Создаем объект процесса
-    bp::ipstream out;
-    bp::opstream in;
-    bp::child process(name, bp::std_in < in, bp::std_out > out);
-
-    // Отправляем входные данные в стандартный ввод процесса
-    in << input << std::endl;
-    in.close();
-
-    // Ждем не более 10 секунд и проверяем, закончил ли процесс работу
     auto start_time = std::chrono::steady_clock::now();
     while (process.running()) {
         auto current_time = std::chrono::steady_clock::now();
@@ -121,11 +74,9 @@ std::string Run_Program(const std::string& input, const std::string& name) {
         }
     }
 
-    // Читаем выходные данные из процесса
     std::string output((std::istreambuf_iterator<char>(out)),
         std::istreambuf_iterator<char>());
 
-    // Удаляем временные файлы
     std::remove("input.txt");
 
     return output;
@@ -206,7 +157,6 @@ vector<pair<int, int>> generate_graph(int n, int m) {
     mt19937 gen(rd());
     uniform_int_distribution<> dist(0, n - 1);
 
-    // Добавляем ребра до тех пор, пока не наберем нужное количество
     while (edges.size() < m) {
         int u = dist(gen);
         int v = dist(gen);
@@ -215,7 +165,6 @@ vector<pair<int, int>> generate_graph(int n, int m) {
         }
     }
 
-    // Удаляем дубликаты ребер
     sort(edges.begin(), edges.end());
     edges.erase(unique(edges.begin(), edges.end()), edges.end());
 
@@ -235,7 +184,6 @@ string Run_Script(int id) {
     map<string, int> integers;
     string input = "";
     for (auto cmd : script) {
-        //cout << cmd.vtype << "\n";
         if (cmd.vtype == 0) {
             integers[cmd.name] = generate_integer(cmd.l, cmd.r);
             input += to_string(integers[cmd.name]);
